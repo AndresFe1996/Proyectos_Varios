@@ -1,0 +1,1262 @@
+## COMANDOS GIT HUB
+
+GITHUB es un repositorio online donde se guardan los proyectos de programacion y donde se pueden trabajar simultaneamiento, GIT, se desarrollo como un sistema de versiones, el cual permite un control del flujo de desarrollo de un proyecto ademas de la colaboracion.
+
+para poder tener un repositorio solo basta crear una cuenta github en:
+https://github.com/AndresFe1996/practicas-python/projects?query=is%3Aopen
+
+
+teniendo la cuenta lista podemos iniciar con aprender git
+
+GIT: es un lenguaje de control de versiones, sirve para interactuar con el entorno de GITHUB
+git se basa en linux, asi que varios comandos seran de linux
+
+# para crear un repositorio vamos a crear una carpeta, en este caso cree la carpeta "hola" en la directiva principal
+
+C:\Users\Home 
+
+esta directiva es la que reconoce como la base
+
+al crear la carpeta, ingresamos con los comandos linux cd
+
+cd hola
+ahora estamos en la carpeta hola
+C:\Users\Home\hola 
+
+ya creamos la carpeta que sera la base del repositorio que vamos a crear
+
+# CONFIGURACION DEL REPOSITORIO
+antes de iniciar, debemos configurar una informacion para asegurar que podamos realizar los procesos de github necesitamos
+configurar nombres y email
+
+esta configuracion la debemos hacer en la ruta del repositorio
+
+esto lo hacemos con los comandos:
+
+git config --global user.name "Andres_cabiativa"
+git config --global user.email "andrescabiativa@hotmail.com"
+
+cuand realizamos esto, internamente en la carpeta se creara una carpeta oculta de git, NO SE TOCA, es una carpeta con la informacion
+basica para que git la interprete como repositorio
+
+# INCIAR EL REPOSITORIO
+
+una ves configurado, vamos a inicializar el repositorio, esto lo hacemos con el comando git init
+git init
+# Initialized empty Git repository in C:/Users/Home/hola/.git/ # este es el mensaje que sale cuando todo sale bien
+
+una ves incializado, el interprete de git (que puede ser linux o en windows con el git bath) nos saldra asi:
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (master)
+
+# master hace referencia a que detecto que estamos en el repositorio principal, es importante notar lo siguiente:
+
+"LA CONFIGURACION GLOBAL DE UN REPOSITORIO, CONSIDERA QUE PUEDE REALIZARSE CUALQUIER MODIFICACION DEL CODIGO SIN TENER CONTROL PREVIO"
+
+es importante que la configuracion global de un repositorio se haga en un PC de su propiedad o que tengan un alto grado de seguridad, pues
+cualquier usuario con el poder de ingresar al repositorio principal podria hacer y deshacer a su antojo.
+
+en el mundo de la programacion master no se suele usar, es una palabra tosca, en su lugar podemos renombrar la rama con otro nombre
+como por ejemplo main
+
+# mediante este codigo renombramos la rama
+
+git branch -m main
+
+branch nos permite ver en que rama estamos; recordemos que git al ser un sistema de control de versiones, tambien cuenta con diferentes formas de control de versiones, las ramas es una de ellas, cada rama es un camino creado por el usuario para editar una parte del codigo que
+conformara la vista principal al final.
+
+# GIT STATUS
+el comando status permite ver en que estado se encuentra el repositorio, en git podemos tener varios estados como:
+
+
+agregado: add, que significa que un archivo fue cargado al repositorio
+guardado: commit, que significa que el archivo cargado fue enviado al repositorio principal
+
+# asi vamos a ver el codigo la primera vez que lo ejecutemos
+
+$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        example.py
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+# notemos que en el repositorio detecto un archivo para carga MAS NO ESTA CARGADO Y MUCHO MENOS ENVIADO
+
+# GIT ADD
+permite agregar un archivo a la rama para su envio
+
+git add example.py
+
+aqui estamos agregando el archivo example.py a la rama
+
+al usar git status vemos lo siguiente:
+
+$ git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   example.py
+
+notemos que ahora aparece new file, significa que se agrego a la rama del repositorio y esta esperando envio
+
+## GIT COMMIT
+guarda el archivo y envia al repositorio principal. Cuando enviamos un commit, NUNCA lo va a enviar sin un mensaje, por tanto al
+darle git commit se nos abrira el editor de texto de linux
+
+para evitar esa molestia (por que es una molestia) vamos a darle el subcomando -m "Y AGREGAMOS EL MENSAJE QUE QUEREMOS ADJUNTAR"
+
+$ git commit -m "este es mi commit"
+
+# mensaje de salida
+On branch main
+nothing to commit, working tree clean
+
+# al darle en git status nos saldra asi
+
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+el archivo fue enviado
+
+
+
+# GIT LOG
+permite ver detalle de los envios (commit) al repositorio principal , cada ves que enviamos un commit, se crea un registro de version el cual podemos consultar como "hash" el hash es un numero unico de version del proceso del commit
+
+$ git log
+
+# salida:
+
+commit a34f01ec7f7909b759832fd313d16b5598e7b95a (HEAD -> main)
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 5 20:45:39 2023 -0500
+
+    este es mi primer commit
+
+# muestra autor, fecha, hora y el hash unico. es importante configurar el repositorio para poder saber este tipo de informacion
+
+
+# MODIFICACIONES EN EL REPOSITORIO
+cuando modificamos un archivo en el repositorio, git sabe y muestra que documentos fueron modificados, por ejempo modifiquemos un archivo, al revisar git status obtenemos lo siguiente:
+
+$ git status
+
+# salida:
+
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   example.py
+        modified:   example_2.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+aparecen 2 archivos modificados 
+
+# GIT CHECKOUT
+# permite confirmar las modificaciones realizadas a un archivo
+
+$ git checkout example_2.py
+Updated 1 path from the index
+
+# aqui se confirma las modificaciones del archivo example_2.py
+
+# GIT RESET
+permite rechazar los commit que enviamos
+
+$ git reset
+Unstaged changes after reset:
+M       example.py
+
+# git log --graph: es una visualizacion grafica de una rama para saber el paso a paso de manera grafica
+
+* commit b652f7214a0f131c0563413378976eef4390500f (HEAD -> main)
+| Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+| Date:   Mon Mar 6 18:30:14 2023 -0500
+|
+|     prueba commit 2
+|
+* commit a34f01ec7f7909b759832fd313d16b5598e7b95a
+  Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+  Date:   Sun Mar 5 20:45:39 2023 -0500
+
+      este es mi primer commit
+
+
+$ git log --graph --pretty=oneline : es una visualizacion mas simple de la informacion de commit enviados
+
+* b652f7214a0f131c0563413378976eef4390500f (HEAD -> main) prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+solo aparece el hash y el mensaje
+
+
+#CONFIGURAR ALIAS
+permite configurar alias o nombres cortos para extensiones de codigo muy grandes
+
+git config --global alias.tree "log --graph --pretty=oneline"
+
+al ejecutar no pasa nada, pero, ejecutemos git tree
+
+git tree
+
+# salida:
+* b652f7214a0f131c0563413378976eef4390500f (HEAD -> main) prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+como vemos es una opcion mas reducida y mejor para extensiones de codigo muy largos
+
+# IGNORAR FICHEROS USANDO GITIGNORE
+
+# con gitirnore descartamos los archivos, rutas o subcarpetas que no queremos que esten visibles en un envio al repositorio
+
+para crear el archivo usamos este comando
+
+touch .gitignore
+
+cuando lo creamos se crea un archivo llamada gitignore, al abrir el archivo se nos abre el editor de texto
+
+aqui colocamos los siguiente
+
+**/."Nombre del archivo" por ejemplo **/.example_2
+
+con esto le estoy diciendo a git, ignore todos los archivos, rutas o algun documento con este nombre, no lo deje visible para cargar
+al repositorio. Util cuando tenemos archivos importantes que no queremos que se suban publicamente o al repositorio por accidente.
+
+# todo lo que este pendiente en el arbol de trabajo estara listo, vamos a comitear gitignore
+
+$ git add .gitignore
+
+$ git commit -m"enviar gitignore"
+
+# salida:
+[main 8b7cf2a] enviar gitignore
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 .gitignore
+
+    
+# GIT DIFF
+imaginemos que tenemos una modificacion en nuestro respositorio del archivo que estamos manejando. Con git status podemos ver que archivos se cambiaron pero ¿ realmente que se cambio? es una pregunta importante pues implica comparar una imagen con otra.
+con git diff podemos validar que cambios acontecieron comparando imagenes previas.
+    
+git diff
+    
+# salida:
+    
+diff --git a/example.py b/example.py
+index daa3c4a..d8c404f 100644
+--- a/example.py
++++ b/example.py
+@@ -1,2 +1,3 @@
+
+ print("Hello world")
++print("modificando el example original")
+\ No newline at end of file
+diff --git a/example_2.py b/example_2.py
+index 576cba5..ee1d788 100644     ## aparece que se agrego y quito algo del archivo example_2.py
+--- a/example_2.py
++++ b/example_2.py
+@@ -5,3 +5,4 @@ Created on Sun Mar  5 19:21:03 2023 # se quitaron 5.3 renglones y se agregaron 5.4
+ @author: Home
+ """
+ print("ESTE ES PRUEBA DE COMMIT 2") # lo que estaba antes
++PRINT("PRUEBA 1") # y la modificacion que realizamos (+) significa que se agrego
+
+# git checkout    
+sirve para guardar cambios realizados a archivos dentro del repositorio
+    
+
+# DESPLAZAMIENTO
+git es un sistema de versiones y por ende se guarda internamente estados del proyecto, estos estados los podemos asociar con los hash
+generados cada ves que comiteamos archivos. Sin embargo podemos desplazarnos por diferentes estados para un control de versiones optimo
+    
+utilizando git checkout vamos a desplazarnos al inicio del proyecto:
+
+#notemos que estamos en la rama principal master o main como la renombramos
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+
+git checkout 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c
+
+# salida:
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 8b7cf2a enviar gitignore
+M       example.py
+
+# y ahora estamos aqui:
+Home@DESKTOP-4MQODGD MINGW64 ~/hola ((8b7cf2a...))
+
+# que paso? que el "cursor" por asi decirlo, ya no se encuentra en la rama master, si no que ahora esta en esta parte del proyecto
+    con el numero de hash asignado.
+    
+¿ que sucede con los cambios posteriores al hash? pues que los elimina, al no estar en la rama actual, si no en el pasado, podemos ver
+    los archivos que estuvieron ANTES del hash no existiran.
+
+para volver simplemente nos conectamos nuevamente a la rame master (main)
+
+git checkout main
+    
+#salida
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+    
+    
+# GIT TAG
+sirve para taggear o etiquetar commits para organizar mejor los puntos importantes de un codigo. Por ejemplo, las versiones de una app es
+    un tag para ver lo que se lleva hasta hoy
+    
+git tag clase_1
+
+# salida: nada
+en principio no vemos nada, pero si hacemos un git log
+    
+    $ git log
+commit 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (HEAD -> main, tag: clase_1)
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Mon Mar 6 21:07:24 2023 -0500
+
+    enviar gitignore
+
+commit b652f7214a0f131c0563413378976eef4390500f
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Mon Mar 6 18:30:14 2023 -0500
+
+    prueba commit 2
+
+commit a34f01ec7f7909b759832fd313d16b5598e7b95a
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 5 20:45:39 2023 -0500
+
+    este es mi primer commit
+
+vemos que en la cabeza tenemos un tag llamado clase_1
+    
+esto es importante, ya que en un control de versiones de un software mucho mas grande, o un proyecto muy grande, las actualizaciones pueden
+    nombrarse y pemritir un mejor control.
+
+
+# GIT BRANCH Y GIT SWITCH
+    
+    hasta el momento tenemos una linea recta en el sistema de versiones, es decir, todas las actualizaciones de nuestro proyecto estan dentro de la rama principal del codigo. Esto es bueno para un programador o una persona que trabaje sola
+    
+sin embargo, en la vida real de un proyecto de software muy grande, trabajamos con equipos muy grandes, y todos quieren usar el mismo codigo
+    
+es aqui donde nace el concepto mas poderoso de git, las ramificaciones (branch)
+    
+    
+vamos ahora a crear una rama, no en main, pero que este conectada para que podamos enviarla a la rama principal
+    
+$ git branch login
+
+no vemos nada raro, pero vamos a revisar con un git log
+
+$ git log
+commit 09ba31235784c7d633d3588e0d4736813475691a (HEAD -> main, login) # extrañamente, ahora tenemos un main y un login, esta es la rama creada
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sat Mar 11 21:35:11 2023 -0500
+
+    commit 3 ejemplo tag
+
+commit 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1)
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Mon Mar 6 21:07:24 2023 -0500
+
+    enviar gitignore
+
+commit b652f7214a0f131c0563413378976eef4390500f
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Mon Mar 6 18:30:14 2023 -0500
+
+    prueba commit 2
+
+commit a34f01ec7f7909b759832fd313d16b5598e7b95a
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 5 20:45:39 2023 -0500
+
+    este es mi primer commit
+
+vamos ahora a conectarnos con la rama creado, esto lo hacemos con switch
+    
+git switch login
+    
+# salida:
+    Switched to branch 'login'
+
+validemos con un git tree donde estamos
+
+$ git tree
+* 09ba31235784c7d633d3588e0d4736813475691a (HEAD -> login, main) commit 3 ejemplo tag # ahora la cabeza apunta a la rama login
+* 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1) enviar gitignore
+* b652f7214a0f131c0563413378976eef4390500f prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+creemos un archivo llamada example_login.py y ahora agreguemos a la rama login, con un git status revisemos nuestro repositorio:
+    
+$ git status
+On branch login
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        example_login.py
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+vemos que example login se encuentra listo para carga, agreguemoslo
+
+$ git add . #con . lo que hacemos es decirle a git que suba todo lo que este listo para cargarse
+
+ahora comiitemos lo que agregamos
+    
+$ git commit -m "prueba login"
+[login 5988787] prueba login
+ 1 file changed, 1 insertion(+)
+ create mode 100644 example_login.py
+
+un git status nos indica la situacion actual del repositorio
+
+$ git status
+On branch login
+nothing to commit, working tree clean
+
+ahora un git log nos indica que esta pasando:
+    
+$ git log
+commit 5988787951fa2b9345ae9e4f52eb6af0b9fa867f (HEAD -> login) # vemos que desde la rama login, se mando un commit
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sat Mar 11 21:52:56 2023 -0500
+
+    prueba login
+
+commit 09ba31235784c7d633d3588e0d4736813475691a (main)
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sat Mar 11 21:35:11 2023 -0500
+
+    commit 3 ejemplo tag
+
+commit 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1)
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Mon Mar 6 21:07:24 2023 -0500
+
+    enviar gitignore
+
+commit b652f7214a0f131c0563413378976eef4390500f
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Mon Mar 6 18:30:14 2023 -0500
+
+    prueba commit 2
+
+commit a34f01ec7f7909b759832fd313d16b5598e7b95a
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 5 20:45:39 2023 -0500
+
+    este es mi primer commit
+
+con git tree podemos ver esto de una manera mas resumida
+    
+$ git tree
+* 5988787951fa2b9345ae9e4f52eb6af0b9fa867f (HEAD -> login) prueba login # se lanzo un commit desde la rama login
+* 09ba31235784c7d633d3588e0d4736813475691a (main) commit 3 ejemplo tag
+* 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1) enviar gitignore
+* b652f7214a0f131c0563413378976eef4390500f prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+conectemonos a la rama main nuevamente
+    
+$ git switch main
+Switched to branch 'main'
+
+# modifiquemos un archivo antes, por ejemplo example_2.py, agreguemos y commitemos nuevamente
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git add .
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git commit -m "v2 example 2"
+[main ecb1b61] v2 example 2
+ 1 file changed, 2 insertions(+)
+
+ahora con un git tree miremos que sucede
+    
+$ git tree
+* ecb1b6175f88cee65825a78b719eaa5e32acf558 (HEAD -> main) v2 example 2
+* 09ba31235784c7d633d3588e0d4736813475691a commit 3 ejemplo tag
+* 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1) enviar gitignore
+* b652f7214a0f131c0563413378976eef4390500f prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+nuevamente la cabeza esta en main y se agrego a example_2, sin embargo vemos que paso algo ¿ donde esta example_login? no esta aun adjuntado a la rama main y por tanto las modificaciones no van a aparecer aun, necesitamos traer de la rama login a la rama main para que veamos las modificaciones, esto lo haremos con merge
+    
+# GIT MERGE
+sirve para conectarse o unir los commit de diferentes ramas a la rama master principal
+    
+git merge main # conectarse de la rama login a la rama mainy
+
+# salida:
+$ git merge main
+Merge made by the 'ort' strategy.
+ example_3.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+automaticamente se agrega las modificaciones que realizamos en la rama login, antes creada, y aparecen en la rama main ahora, validemos
+    con un git tree estos cambios
+    
+$ git tree
+*   1b065de18c3bcfa05658ad2879bf3531bb815d51 (HEAD -> login) Merge branch 'main' into login
+|\
+| * ecb1b6175f88cee65825a78b719eaa5e32acf558 (main) v2 example 2
+* | 5988787951fa2b9345ae9e4f52eb6af0b9fa867f prueba login           # notemos en este munto como se crea la ramificacion de login
+|/
+* 09ba31235784c7d633d3588e0d4736813475691a commit 3 ejemplo tag
+* 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1) enviar gitignore
+* b652f7214a0f131c0563413378976eef4390500f prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+    
+    
+# CONFLICTOS EN GIT
+los merge funcionan, sin embargo, que sucederia si presentamos un conflicto? es decir, que un merge nos coloque un problema para poder
+    cargar al repositorio la informacion. Entonces he aqui el dolor de cabeza de dia a dia de un desarrollador de software
+    
+imaginemos que nosotros estamos desconcentrados y que modificamos algo que no es, modifiquemos el archivo example_3.py y agregemos al codigo
+    un login, para saber en donde estamos, recordemos que seguimos en la rama login
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+
+# agreguemos y commitemos como sabemos hacer
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git add .
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git commit -m "prueba example_3 login"
+[login 759fa3a] prueba example_3 login
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+ahora volvamos a la rama main
+git switch main
+    
+revisemos el archivo example_3.py ¿ notamos algo raro? pues si.
+    
+recordemos que modificamos el archivo agregando un login, pero ahora no lo vemos ¿porque? porque al trabajar en diferentes ramas, ninguno de los programadores sabe lo que hace el otro, solo saben en que rama estan y que archivos estan usando
+    
+modifiquemos el archivo example_3.py, imageniemos que el equipo de desarrollo le agrego v3 a su codigo
+    
+revisamos, agregamos y commiteamos
+
+# revisamos
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   example_3.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+# agregamos:
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git add .
+
+# commiteamos
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git commit -m "prueba example_3 v3"
+[main ca0b9d5] prueba example_3 v3
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+volvamos a la rama login y hagamos un merge para cargar lo de la rama login a la rama master, como lo sabemos hacer
+    
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git switch login
+Switched to branch 'login'
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git merge main
+
+# SALIDA: OJO AQUI POR FAVOR
+Auto-merging example_3.py
+CONFLICT (content): Merge conflict in example_3.py
+Automatic merge failed; fix conflicts and then commit the result.
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login|MERGING)
+$
+
+# TENEMOS UN CONFLICTO, git nos indica que detecto algo inusual, una modificacion en el archivo en la misma linea de codigo que el equipo de login ( que se equivoco de archivo modifico en la rama login) y que el equipo main utiliza este archivo para sus procesos
+    
+¿ que hace un area diferente tocando un archivo que no deberia tocar?
+    
+aclaremos algo NO EXISTIRA CONFLICTO SI Y SOLO SI LAS LINEAS DE CODIGO MODIFICADAS NO SON LAS MISMAS. en este caso, si hubieramos modificado otra linea de codigo, git lo hubiera permitido, pues es inteligente y sabe que no existe nada malo, cada quien esta en lo suyo, pero este no es el caso AMBOS ESTAN LA MISMA LINEA DE CODIGO
+    
+revisemos el archivo en nuestro editor de codigo:
+    
+esta es la visual del editor+
+    
+print("ejemplo de tag")
+
+for i in range(10):
+    print("ejemplo")
+
+<<<<<<< HEAD (current chance) ## lo que hicimos en la rama login, que el equipo login hizo
+print("ejemplo de tag v2 login")
+=======
+print("ejemplo de tag v3")
+>>>>>>> main (incoming change) ## lo que el equipo de desarrollo main esta haciendo
+
+# increiblemente, git nos informa de las modificaciones y nos bloquea el git, pues el no sabe quien tiene la razon, como vemos, ambas lineas
+    fueron las que modificamos 
+    
+ahora ¿ con que nos vamos a quedar?
+    
+vamos a decir que el equipo login se dio de cuenta del error, y que main va a quedarse con las modificaciones, eliminamos la info del equipo
+    login y procedemos a guardar
+    
+    
+como le decimos a git que ya se tomo una decision? primeramente entender que al ponerse de acuerdo, nuevamente el fichere se va a modificar
+    por tanto si intentamos hacer un commit en esta situacion nos generara un error
+    
+
+$ git commit -m "correccion conflicto"
+error: Committing is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+U       example_3.py
+
+    
+aqui nos dice que el archivo fue modificado ¿ que proceso debemos hacer para cargar un archivo modificado al repositorio? correcto, agregar y despues commitear
+
+con un git status podemos verlo mas claramente:
+$ git status
+On branch login
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   example_3.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+# agregamos:
+$ git add example_3.py
+
+# commiteamos:
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login|MERGING)
+$ git commit -m "correccion conflicto"
+[login d18c918] correccion conflicto
+
+# nuevamente estamos corregidos, no tenemos nada pendiente y ahora al revisar el archivo final, tendremos la modificacion solamente de main
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git status
+On branch login
+nothing to commit, working tree clean
+
+# GIT STASH
+    
+supongamos que estamos trabajando y derrepente se te solicita a una reunion, esta reunion es de urgencia pues necesitas estar presente en un codigo que se hizo em la rama main y que parece ser que esta dando errores que no deberian. COmo estas en la rama login, tu primera intencion es pasar a la rama main. Vamos a intentarlo
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git switch main
+
+#salida:
+error: Your local changes to the following files would be overwritten by checkout:
+        example_login.py
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+que sucede? como tienes un fichero modificado en la rama login, y aun este no esta comiteado, git arroja un error ESPERA QUE NO HAS TERMINADO, NECESITO QUE CARGUES ESTO ANTES QUE TE PASES A OTRA RAMA- es lo que dice git, SI SALES DE AQUI, PUEDES PERDER ESTO.
+    
+el comando stach nos sirve para guardar lo que estamos haciendo NO LO GUARDE, solo dejelo en la rama mientras vuelvo y sigo con mi desarrollo, es como un commit, solo que es temporal y que SOLO NOSOTROS lo sabemos:
+    
+
+$ git stash
+    # salida:
+Saved working directory and index state WIP on login: d18c918 correccion conflicto
+ 
+# con git stash list podemos ver todos los stash pendientes
+$ git stash list
+stash@{0}: WIP on login: d18c918 correccion conflicto
+
+y ahora, podemos saltar a la rama main para ir a la reunion y revisar el codigo:
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git switch main
+Switched to branch 'main'
+
+finalizamos nuestra reunion y las validaciones y volvemos nuevamente a nuestro proyecto
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+
+$ git switch login
+Switched to branch 'login'
+
+pero que pasa con el archivo example_login que modificamos? donde esta el v2? pues como no commiteamos, el archivo no esta actualizado PERO TAMPOCO ESTA BORRADO, esta en estado stach, entonces debemos ir al estado stash y retomar el trabajo que dejamos. En este caso usamos la subfuncion POP que nos trae todo lo que dejamos en estado stash
+    
+$ git stash pop
+On branch login
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   example_login.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (fb0c3b371b042693c2f9031c4ef2dbb6595200de)
+
+ahora podemos seguir, agregar y commitear
+    
+# seguimos con nuestro desarrollo, ahora en V3 y nos solicitan nuevamente en mitad del proceso, aplicamos el conocimiento adquirido:
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git stash
+Saved working directory and index state WIP on login: 49cd50e example_login v2
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git switch main
+Switched to branch 'main'
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git stash list
+stash@{0}: WIP on login: 49cd50e example_login v2
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git switch login
+Switched to branch 'login'
+
+listo, pero ahora decimos que no queremos volver al punto que teniamos, nos arrepentimos y dijimos que no era lo que buscamos, pues es tan sencillo como decir drop
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git stash drop
+Dropped refs/stash@{0} (d564e4349a4b242958e9d4cecb39a538121e3a4f)
+
+inmediatamente, el archivo volvera al ultimo commit enviado, y no sabremos nada de lo que hicimos. util para trabajos temporales 
+    
+# REINTEGRACION EN GIT
+anteriormente hicimos un merge desde la rama main a la rama login, uniendo ambos proyectos, sin embargo tambien es posible hacer una union desde la rama login a la merge, esto se conoce como reintegracion
+    
+comencemos por revisar la situacion de la rama login
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git status
+On branch login
+nothing to commit, working tree clean
+
+tood bien, ahora volvamos a la rama main    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git switch main
+Switched to branch 'main'
+
+    
+listo, ahora, podemos usar el comando diff para no solo revisar diferencias entre ficheros si no ademas, revisar diferencias entre ramas
+por ejemplo, revisemos la diferencia que se encuentra de la rama main a la login
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git diff login
+diff --git a/example_3.py b/example_3.py
+index ede0f6f..b074374 100644
+--- a/example_3.py
++++ b/example_3.py
+@@ -3,4 +3,4 @@ print("ejemplo de tag")
+ for i in range(10):
+     print("ejemplo")
+
+-print("ejemplo de tag v3")
++print("ejemplo de tag v3")
+\ No newline at end of file
+diff --git a/example_login.py b/example_login.py
+deleted file mode 100644
+index a200f2b..0000000
+--- a/example_login.py
++++ /dev/null
+@@ -1 +0,0 @@
+-print("login v2")
+
+tenemos 2 archivos modificados, uno con mas agregaciones que otro
+    
+ahora hagamos un merge desde main a login
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git merge login
+Updating ca0b9d5..49cd50e
+Fast-forward
+ example_3.py     | 2 +-
+ example_login.py | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+ create mode 100644 example_login.py
+
+hemos cargado las modificaciones realizadas en la rama login a la rama main
+revisemos el status    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+    
+nada por el momento, ahora hagamos un checkout, el checkout es el comando mas versatil de git, sirve para un monton de cosas entre ellas
+    conectarse
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git checkout main
+Already on 'main'
+
+    
+revisamos el estado de mian
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+nos conectamos a login con checkout
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git checkout login
+Switched to branch 'login'
+
+nos conectamos a main
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (login)
+$ git switch main
+Switched to branch 'main'
+
+no hay nada
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+lo importante es que no existan conflictos en los archivos, el merge funciona de manera hacia abajo como tambien hacia arriba
+    
+    
+# ELIMINACION DE RAMAS
+    
+en el dia a dia de un proyecto las ramas funcionan como conexiones temporales a la rama principal, sin embargo, cuando ya no se necesita, no sirve para nada dejarlas guardadas. Esto se hace, porque a medida que el proyecto va creciendo, su sistema de ramas va actualizandose, y, en consecuencia, su existencia sin hacer nada genera mas estorbo a los futuros desarrollos de ramas.
+    
+    
+para eliminar una rama usamos el subcomando -d del comando branch
+    
+$ git branch -d login
+Deleted branch login (was 49cd50e).
+
+con esto eliminamos la rama login
+    
+vamos a revisar si realmente la eliminamos
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git branch
+* main
+
+solo aparece main, esto significa que ya la rama no existe
+    
+revisemos el historial de proyectos con reflog
+    
+$ git reflog
+49cd50e (HEAD -> main) HEAD@{0}: checkout: moving from main to main
+49cd50e (HEAD -> main) HEAD@{1}: checkout: moving from login to main
+49cd50e (HEAD -> main) HEAD@{2}: checkout: moving from main to login
+49cd50e (HEAD -> main) HEAD@{3}: checkout: moving from login to main
+49cd50e (HEAD -> main) HEAD@{4}: checkout: moving from main to login
+49cd50e (HEAD -> main) HEAD@{5}: checkout: moving from main to main
+49cd50e (HEAD -> main) HEAD@{6}: merge login: Fast-forward
+ca0b9d5 HEAD@{7}: checkout: moving from login to main
+49cd50e (HEAD -> main) HEAD@{8}: checkout: moving from main to login
+ca0b9d5 HEAD@{9}: checkout: moving from login to main
+49cd50e (HEAD -> main) HEAD@{10}: reset: moving to HEAD
+49cd50e (HEAD -> main) HEAD@{11}: commit: example_login v2
+d18c918 HEAD@{12}: checkout: moving from main to login
+ca0b9d5 HEAD@{13}: checkout: moving from login to main
+d18c918 HEAD@{14}: reset: moving to HEAD
+d18c918 HEAD@{15}: commit (merge): correccion conflicto
+759fa3a HEAD@{16}: checkout: moving from main to login
+ca0b9d5 HEAD@{17}: commit: prueba example_3 v3
+ecb1b61 HEAD@{18}: checkout: moving from login to main
+759fa3a HEAD@{19}: commit: prueba example_3 login
+1b065de HEAD@{20}: merge main: Merge made by the 'ort' strategy.
+5988787 HEAD@{21}: checkout: moving from main to login
+ecb1b61 HEAD@{22}: commit: v2 example 2
+09ba312 HEAD@{23}: checkout: moving from login to main
+5988787 HEAD@{24}: commit: prueba login
+09ba312 HEAD@{25}: checkout: moving from main to login
+09ba312 HEAD@{26}: commit: commit 3 ejemplo tag
+8b7cf2a (tag: clase_1) HEAD@{27}: reset: moving to HEAD
+8b7cf2a (tag: clase_1) HEAD@{28}: reset: moving to HEAD
+8b7cf2a (tag: clase_1) HEAD@{29}: checkout: moving from 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c to main
+:
+en donde nacio la rama login? parece ser que nacio en 09ba312 vamos a revisarla
+
+$ git checkout 09ba312
+Note: switching to '09ba312'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 09ba312 commit 3 ejemplo tag
+
+parece que si hubo una conexion inicial a esta rama, y todo indica que este es el origen, vamos a revisarlo con un tree para comprobar
+    
+$ git tree
+* 49cd50ebe57e46734607371f393fbcb86694f684 (HEAD -> main) example_login v2
+*   d18c918741327f18001fa690abe8098660fdcb76 correccion conflicto
+|\
+| * ca0b9d5d6b76a3d5738a41572dee98163aaa4075 prueba example_3 v3
+* | 759fa3a46ccd4bd4c82b75f9293ad2f650b840a0 prueba example_3 login
+* | 1b065de18c3bcfa05658ad2879bf3531bb815d51 Merge branch 'main' into login
+|\|
+| * ecb1b6175f88cee65825a78b719eaa5e32acf558 v2 example 2
+* | 5988787951fa2b9345ae9e4f52eb6af0b9fa867f prueba login
+|/
+* 09ba31235784c7d633d3588e0d4736813475691a commit 3 ejemplo tag
+* 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1) enviar gitignore
+* b652f7214a0f131c0563413378976eef4390500f prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+podemos notar algo, falta un * en la conexion ecb1b61, esto hace referencia al commit que unia todo el proyecto, NO ES QUE FALTE, es que git nos dice que elimino la rama, sin embargo, la deja como una referencia, pues si eliminara realmente la rama, todo lo que se hizo en ella se perderia
+    
+GIT NO ELIMINA RAMAS, LAS OCULTA CON REFERENCIAS INTERNAS PARA MANTENER EL PROYECTO OPTIMO, ES DECIR, QUE INTEGRA INTERNAMENTE LA RAMA A LA RAMA PRINCIPAL, podemos conectarnos a la rama login? NO
+    
+$ git switch login
+fatal: invalid reference: login
+
+la rama no existe, pero si sus referencias, sus hash generados y su informacion
+    
+    
+    
+## INTRODUCCION A GITHUB
+    
+    
+## AUTENTICACION SSH
+ahora vamos a ver como sincronizar github con el repositorio en nuestra maquina, la parte compleja de todo esto. Github tiene un instrutivo relacionado con la creacion de llaves para la autenticacion SSH, este es el proceso para crear una llave y la autenticacion desde 0
+    
+colocamos el siguiente comando, colocamos el correo electronico asosiado a la cuenta gitbub (previamente creada)
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ ssh-keygen -t ed25519 -C "andrescabiativa@hotmail.com"
+    
+    
+
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/c/Users/Home/.ssh/id_ed25519):
+Created directory '/c/Users/Home/.ssh'.
+
+se crea un directorio ssh en el PC Y acontinuacion git nos solicita coloquemos una frase de seguridad para autenticacion
+aqui lo usual es que coloquen espacio vacio, enter y enter, sin embargo por error, le puse hola
+    
+Enter passphrase (empty for no passphrase):    hola
+Enter same passphrase again:   hola
+
+se autentica que sea el usuario y se crea la llave unica
+
+Your identification has been saved in /c/Users/Home/.ssh/id_ed25519
+Your public key has been saved in /c/Users/Home/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:I+IT2RX2784h+/q9VJBYyoYmUfl2xUoMfAf4UdXrCxU andrescabiativa@hotmail.com
+The key's randomart image is:
++--[ED25519 256]--+
+|        +..o.+o+=|
+|       . +.oo+=E=|
+|        o +.=+o=o|
+|     o . o oo ++ |
+|    + o S  ...o .|
+|   . o . . . . o |
+|    o     . o o .|
+|     .     = + . |
+|          o+= o. |
++----[SHA256]-----+
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ start the ssh-agent in the background
+El sistema no puede encontrar el archivo the.
+
+# ahora activamos el agente ssh, es un programa que permite conectarse con github para lanzar el repositorio a github
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ eval "$(ssh-agent -s)"
+Agent pid 1487
+
+# agregamos la llave privada a nuestro repositorio en git
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ ssh-add ~/.ssh/id_ed25519
+Enter passphrase for /c/Users/Home/.ssh/id_ed25519: hola
+Identity added: /c/Users/Home/.ssh/id_ed25519 (andrescabiativa@hotmail.com)
+
+# ahora vamos a incorporar una clave nueva
+$ clip < ~/.ssh/id_ed25519.pub
+                              
+aqui se genera y ahora debemos ir a la ruta de ssh y buscar el archivo.pub C:\Users\Home\.ssh
+abrimos el archivo con un editor de texto, nos saldra una linea de texto extensa, copiamos en el portapapeles,
+
+ahora vamos a github, settings, SSH AND GPG KEYS, VAMOS A DONDE DICE SSH, damos en new SSH key, ahora pegamos el texto
+
+nos va pedir una autenticacion de contraseñas de github, es normal
+                              
+listo, tenemos la contraseña sincronizada
+                              
+                              
+# ahora vamos a probar si estamos conectados
+ejecutamos el siquiente comando
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ ssh -T git@github.com
+
+## salida:
+The authenticity of host 'github.com (140.82.121.4)' can't be established.
+ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+This key is not known by any other names.
+
+# aqui decimos que yes
+
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes 
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+
+    # listo, ya estamos sincronizados con github
+Hi AndresFe1996! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+
+
+# REPOSITORIO PROYECTO
+                              
+El repositorio con el nombre de usuario se usa para generar una presentacion clave del desarrollador, es una hoja de vida por asi decirlo, pero NUNCA, NUNCA DEBEMOS USARLO PARA CARGAR CODIGO. git no lo permita, para eso, debemos crear un repositorio nuevo dentro de git que no tendremos ningun problema
+                              
+                              
+# GIT REMOTE
+
+teniendo en consideracion que ya tenemos todo sincronizado, ahora vamos a finalmente cargar al repositorio de github lo que hemos hecho
+                              
+                              
+vamos a iniciar con el siguiente codigo:
+
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git remote add origin https://github.com/AndresFe1996/example.git 
+
+este codigo nos permite conectarnos con el repositorio que queremos seleccionar para cargar los archivos, en este caso lo llamamos example
+                              
+ahora vamos a utilizar un codigo muy importante ademas del add, status y commit, el push
+                              
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git push -u origin main
+
+cuando usamos este codigo, le estamos diciendo a git que suba todo lo que tenemos en la carpeta repositorio hola a el repositorio github example con la rama main. La rama main se convierte entonces en la rama de conexion con github y como tal en la rama de cambios finales
+
+# salida:
+Enumerating objects: 34, done.
+Counting objects: 100% (34/34), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (28/28), done.
+Writing objects: 100% (34/34), 2.76 KiB | 565.00 KiB/s, done.
+Total 34 (delta 13), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (13/13), done.
+To https://github.com/AndresFe1996/example.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
+ya hemos cargado a git hub lo que hemos hecho hasta ahora.
+    
+    
+###  SUBIDA PROYECTO
+    
+cada repositorio tiene la opcion de agregar un readme, un documento de presentacion de que se esta haciendo. Esto, al ser modificaciones en github se pedira un commmit. Imaginemos que ahora necesitamos modificar algo del archivo example.py en este sentido debemos agregar una linea de bienvenida a git
+    
+lo hacemos, y ahora lo guardamos en nuestro repositorio local
+verifiquemos que tenemos modificado:    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   example.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+# agreguemos a la rama:
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git add example.py
+
+# ahora comiiteamos el archivo:
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git commit -m "hello github v1"
+[main 5c1638a] hello github v1
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+que pasa aca? sera que ya esta modificafo el archivo en github? la respuesta es que NO.
+    
+git al ser un sistema tan seguro, no permite que las cosas pasen asi como asi, aqui debemos hacer un push
+    
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git push
+To https://github.com/AndresFe1996/example.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/AndresFe1996/example.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+# error, que sucedio? github es un sistema nuevamente, tan seguro, que el no permite que se carguen cosas sin consentimiento, en este caso nos avisa que quizas no estamos del todo actualizados con las modificaciones 
+    
+    
+# GIT FETCH Y GIT PULL
+    
+git fesh: sirve para descargar el historial de modificaciones sin los cambios (verificar como se movio la cosa antes de subir) es como preguntarle a git ¿ tienes novedades que deba enterarme?
+    
+git pull: sirve para descargar el historial de modifiaciones con los cambios realizados (verifica y carga los cambios)
+    
+# hagamos un git fesh para ver las modificaciones que hicimos en el repositorio
+$ git fetch
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 698 bytes | 34.00 KiB/s, done.
+From https://github.com/AndresFe1996/example
+   49cd50e..137f84e  main       -> origin/main
+
+    
+# ahora hagamos un git log, vemos que todo esta bien, el ultimo commit que se hizo fue el de example.py
+Home@DESKTOP-4MQODGD MINGW64 ~/hola (main)
+$ git log
+commit 5c1638a9ff78cc2161a01f86a169b2cd2aec26c0 (HEAD -> main)
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Tue Mar 14 20:00:20 2023 -0500
+
+    hello github v1
+
+commit 49cd50ebe57e46734607371f393fbcb86694f684
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 12 21:07:40 2023 -0500
+
+    example_login v2
+
+commit d18c918741327f18001fa690abe8098660fdcb76
+Merge: 759fa3a ca0b9d5
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 12 20:46:18 2023 -0500
+
+    correccion conflicto
+
+commit ca0b9d5d6b76a3d5738a41572dee98163aaa4075
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 12 19:51:41 2023 -0500
+
+    prueba example_3 v3
+
+commit 759fa3a46ccd4bd4c82b75f9293ad2f650b840a0
+Author: Andres_Cabiativa <andrescabiativa@hotmail.com>
+Date:   Sun Mar 12 19:46:50 2023 -0500
+
+    prueba example_3 login
+
+# validemos con un tree, hasta el momento esta todo ok
+$ git tree
+* 5c1638a9ff78cc2161a01f86a169b2cd2aec26c0 (HEAD -> main) hello github v1
+* 49cd50ebe57e46734607371f393fbcb86694f684 example_login v2
+*   d18c918741327f18001fa690abe8098660fdcb76 correccion conflicto
+|\
+| * ca0b9d5d6b76a3d5738a41572dee98163aaa4075 prueba example_3 v3
+* | 759fa3a46ccd4bd4c82b75f9293ad2f650b840a0 prueba example_3 login
+* | 1b065de18c3bcfa05658ad2879bf3531bb815d51 Merge branch 'main' into login
+|\|
+| * ecb1b6175f88cee65825a78b719eaa5e32acf558 v2 example 2
+* | 5988787951fa2b9345ae9e4f52eb6af0b9fa867f prueba login
+|/
+* 09ba31235784c7d633d3588e0d4736813475691a commit 3 ejemplo tag
+* 8b7cf2a1e2c4f2cbf90d5f6cf742e62c4942596c (tag: clase_1) enviar gitignore
+* b652f7214a0f131c0563413378976eef4390500f prueba commit 2
+* a34f01ec7f7909b759832fd313d16b5598e7b95a este es mi primer commit
+
+# hagamos un git pull
+    
+tenemos un archivo que se creo en el repositorio llamado readme, este se descargara al repositorio de la maquina
+$ git pull
+Merge made by the 'ort' strategy.
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
+
+    
+# nuevamene hagamos un git push
+    
+$ git push
+Enumerating objects: 9, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 560 bytes | 560.00 KiB/s, done.
+Total 5 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
+To https://github.com/AndresFe1996/example.git
+   137f84e..5bb8f83  main -> main
+    
+    
+## GIT CLONE
+imaginemos que somos un nuevo integrate de un equipo de trabajo el cual esta desarrollando el proyecto example. Supongamos que tienes un equipo nuevo y necesitas acceder al proyecto para comenzar. Github ofrece varias formas de realizar esto, desde el repositorio en el aparatado code/clone. Tenemos muchas maneras, https, SSH y github cli, COMO ESTAMOS USANDO SHH vamos a usar esto.
+    
+    
+supongamos que queremos colocar la carpeta del repositorio en nuestro escritorio, basta con ir a la direccion del escritorio
+    
+Home@DESKTOP-4MQODGD MINGW64 ~
+$ cd desktop
+
+una ves en el escritorio podemos git clone y el codigo que nos da el apartado SSH
+
+Home@DESKTOP-4MQODGD MINGW64 ~/desktop
+$ git clone git@github.com:AndresFe1996/example.git
+Cloning into 'example'...
+remote: Enumerating objects: 42, done.
+remote: Counting objects: 100% (42/42), done.
+remote: Compressing objects: 100% (19/19), done.
+remote: Total 42 (delta 17), reused 39 (delta 16), pack-reused 0
+Receiving objects: 100% (42/42), done.
+Resolving deltas: 100% (17/17), done.
+
+LISTO, EN EL ESCRITORIO TENDRAS UNA CARPETA CON EL NOMBRE DEL PROYECTO Y ADENTRO ESTARA TODOS LOS FICHEROS QUE SE ENCUENTRAN ALLI, NO OLVIDES QUE AMBAS CARPETAS (REPORSITORIO LOCAL) Y (RPEOSITORIO REMOTO) SE ACTUALIZARAN CON LAS ULTIMAS NOVEDADES.
+    
+SUPER IMPORTANTE EL TEMA DE LA SEGURIDAD, MUCHOS REPOSITORIOS SON PUBLICOS, PERO ALGUNOS, DEBIDO AL IMPACTO DEL CODIGO TIENEN NIVELES DE SEGURIDAD, HABLA CON EL ADMIN DEL PROYECTO EN CASO DE ALGUNA DIFICULTAD CON EL ACCESO.
+    
+GIT FORK (bifurcacion)
+    
+supongamos que queremos copiar un repositorio pero no es nuestro, sencillamente podemos dar con un git clone la url ssh del proyecto y ya esta. Sin embargo, que pasaria si modificamos un fichero en esta copia y queremos subirla? NO NOS DEJA
+    
+github detecta que un repositorio que no es el tuyo fue clonado y, como consecuencia, no va a permitir modificaciones para evitar accidentes, pero podemos hacer un fork
+    
+el fork funciona como una copia del proyecto pero cuyas modificaciones que hagamos se hagan sobre la copia del proyecto, mas no el original. esto hace que un push y un git clone funcione normalmente pero solo funcionara en la copia del repositorio que esta en nuestro usuario, NUNCA EN EL USUARIO ORGINAL
+    
+    
+## FLUJO COLABORATIVO
+  
+hacer un pull request ( traer las modificaciones del repositorio clonado al repositorio original)
+    
+##    
+
+    

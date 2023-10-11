@@ -4,39 +4,69 @@ Created on Tue Jul 26 16:24:19 2022
 
 @author: Home
 """
+# Librerias necesarias para algunas funciones
+
 import pandas as pd
 from pandas_datareader import data
 import numpy_financial as npf
 import tabulate as tab
-import investpy as inv
 from pandas import ExcelWriter
-class Interes_compuesto():  ## CLASE , ESTA ES LA CLASE
-    print("""BIENVENIDO AL MODULO DE FINANZAS FECHO POR MI, POR FAVOR PARA ESTA CLASE
-          RECUERDA USAR TASAS E.A O E.V TEN EN CUENTA LA PERIODICIDAD PORFAVOR""")
-    def __init__(self,capital,interes,plazo): ## AQUI SE COLOCAN LOS PARAMETROS BASICOS DE LA CLASE
-        self.capital=capital
-        self.interes=interes/100
-        self.plazo=plazo
-        
-        self.i=0 ## interes VA este es un ejemplo de variable de clase, solo esta en la clase
-        self.p=0 ## plazo VA
-        self.vf_0=0 ## plazo VA
-        self.vp_0=0
-        self.monto=0
-        
-    def valor_futuro(self): ## CREAMOS METODOS O INSTANCIAS
-        self.vf=self.capital*(1+self.interes)**self.plazo
-        print("el valor futuro de su operacion es: ")
-        return self.vf
+
+# clase interes simple
+class interes_simple():
+    def __init__(self):
+        pass
     
-    def valor_actual(self,vf_0,i,p): ## CREAMOS METODOS
-        self.i=i
-        self.p=p
-        self.vf_0=vf_0
+    def valor_futuro_simple(self,capital_inicial, interes_monetario):
+        self.capital=capital_inicial
+        self.interes=interes_monetario
+
+        valor_futuro=self.capital+self.interes
+        return print(valor_futuro)
+
+    def tiempo_simple(self,interes_monetario, capital_inicial,tasa ):
+        self.int=interes_monetario
+        self.cap=capital_inicial
+        self.tasa=tasa
+
+        tiempo_s=self.int/(self.cap*self.tasa)
+        return print(tiempo_s)
+    
+    def tasa_simple(self,interes_monetario, capital_inicial, tiempo):
+        self.inte=interes_monetario
+        self.capi=capital_inicial
+        self.tiempo=tiempo
+        tasa_s=float(self.inte)/(float(self.capi)*float(self.tiempo))
+        return print(tasa_s)
+
+    def valor_presente_simple(self, interes_monetario, tasa,tiempo):
+        self.inter=interes_monetario
+        self.tas=tasa
+        self.time=tiempo
+        valor_presente_s=float(self.inter)/(float(self.time)*float(self.tas))
+        return print(valor_presente_s)
+
+# clase interes compuesto
+class Interes_compuesto():  ## CLASE , ESTA ES LA CLASE
+    def __init__(self): ## AQUI SE COLOCAN LOS PARAMETROS BASICOS DE LA CLASE
+        pass
+
+    def valor_futuro_compuesto(self, valor_presente, tasa, periodos): ## CREAMOS METODOS O INSTANCIAS
+        self.valor_p=valor_presente
+        self.tasa=tasa
+        self.periodos=periodos
         
-        self.va=self.vf/(1+self.i)**self.p
+        valor_f_compuesto=self.valor_p*(1+self.tasa)^self.periodos
+        return print(valor_f_compuesto)
+    
+    def valor_actual(self,valor_futuro,tasa,periodo): ## CREAMOS METODOS
+        self.i=tasa
+        self.p=periodo
+        self.vf=valor_futuro
+        
+        valor_presente_compuesto=self.vf/(1+self.i)**self.p
         print("el valor actual de su operacion es: ")
-        return self.va
+        return print(valor_presente_compuesto)
 
     def amortizacion(self,monto,plazo,interes):
         self.monto=float(monto)
@@ -45,14 +75,14 @@ class Interes_compuesto():  ## CLASE , ESTA ES LA CLASE
         global pago_mensual
         pago_mensual=self.monto*(self.i*(1+self.i)**self.p)/((1+self.i)**self.p-1)
         print("la cuota mensual del credito es: ")
-        return round(pago_mensual)
+        return print(round(pago_mensual))
     
     def crear_tabla_amortizacion(self,monto,plazo,interes,cuota_manejo=0,seguros=0):
         ## EN AGRADECIMIENTO A LOS INGENIEROS DE NUMPY_FINANCIAL, MIS RESPETOS
         ## Y TAMBIEN A LOS INGENIEROS DE TABULATE(CARPINTERIA PERFECTA DE IMPRESION)
         self.monto=monto
         self.plazo=plazo
-        self.interes=interes
+        self.interes=interes/100
         self.cuota_manejo=cuota_manejo
         self.seguros=seguros
         
@@ -85,41 +115,24 @@ class Interes_compuesto():  ## CLASE , ESTA ES LA CLASE
         # tabulate constuye tablas
         print("capital a amortizar: ",capital,"periodos seleccionados: ",plazo,"interes E.F: ",tasa)
         print(tab.tabulate(datos, headers=['Periodo', 'Cuota',"Cuota tot","cuota_Uso","seguros" ,'Capital', 'Intereses', 'saldo'], tablefmt='psql'))
+   
+    def tasa_compuesta(self, nper, va, vf,):
+        __texto__="Tasa_compuesta solo sirve para pago de intereses al final del periodo"
+        self.nper=float(nper)
+        self.va=float(va)
+        self.vf=float(vf)
 
-    def eliminar_IC(self):
-        print("---eliminando datos---")
-        self.capital=0
-        self.interes=0
-        self.plazo=0
-        print("---datos eliminados satisfactorio---")
-        
-class Inversion():
-    
-    def __init__(self,inventario,FI,FF):
-        self.inventario=inventario
-        self.FI=FI
-        self.FF=FF
-        
-    def descargar_yahoo_finance(self):
-        INV=data.DataReader(self.inventario,data_source="yahoo",start=self.FI,end=self.FF)
-        return print(INV)
-    
-    def descargar_investing(self,inventario,FI,FF):
-        # pip install investpy ## 2022-10-23 el modulo presenta falla por problemas con investing
-        # ver 
-        self.inventario=inventario
-        self.FI=FI
-        self.FF=FF
-        INV=inv.get_stock_historical_data(self.inventario, "colombia", self.FI, self.FF)
-        return print(INV) 
-    
-        #misc{investpy,author = {Alvaro Bartolome del Canto},
-            #title = {investpy - Financial Data Extraction from Investing.com with Python},
-            #year = {2018-2021},
-            #publisher = {GitHub},
-            #journal = {GitHub Repository},
-            #howpublished = {\url{https://github.com/alvarobartt/investpy}}\/
-    
+        tasa=(self.vf/self.va)**(1/self.nper)-1
+        return print(tasa)
+
+    def tiempo_negociacion(self,va,vf,tasa):
+        __texto__="tiempo_negociacion solo sirve para pago de intereses al final del periodo"
+        self.va=float(va)
+        self.vf=float(vf)
+        self.tasa=float(tasa/100)
+
+        tiempo_n=np.log2((self.vf/self.va))/np.log2((1+self.tasa))
+        return print(tiempo_n)
 
 class  Simular_portafolio_RF(Interes_compuesto):
     def __init__(self,cantidad):
@@ -163,40 +176,137 @@ class  Simular_portafolio_RF(Interes_compuesto):
         df.to_excel(escritor,sheet_name="hoja1", index=False)
         escritor.save()
         print("data guardada")
+
+# MANEJO DE INTERESES
+
+class interes():
+    def __init__(self):
+        pass
+    global __tasas__
+    __tasas__={'EM_EM':1,
+'EM_ED':0.0333333333333333,
+'EM_ES':6,
+'EM_EC':4,
+'EM_EB':2,
+'EM_ET':3,
+'EM_EA':12,
+'EM_EQ':0.5,'ED_EM':30,
+'ED_ED':1,
+'ED_ES':180,
+'ED_EC':120,
+'ED_EB':60,
+'ED_ET':90,
+'ED_EA':360,
+'ED_EQ':15,
+'ES_EM':0.166666666666667,
+'ES_ED':0.00555555555555556,
+'ES_ES':1,
+'ES_EC':0.666666666666667,
+'ES_EB':0.333333333333333,
+'ES_ET':0.5,
+'ES_EA':2,
+'ES_EQ':0.0833333333333333,
+'EC_EM':0.25,
+'EC_ED':0.00833333333333333,
+'EC_ES':1.5,
+'EC_EC':1,
+'EC_EB':0.5,
+'EC_ET':0.75,
+'EC_EA':3,
+'EC_EQ':0.125,'EB_EM':0.5,
+'EB_ED':0.0166666666666667,
+'EB_ES':3,
+'EB_EC':2,
+'EB_EB':1,
+'EB_ET':1.5,
+'EB_EA':6,
+'EB_EQ':0.25,'ET_EM':0.333333333333333,
+'ET_ED':0.0111111111111111,
+'ET_ES':2,
+'ET_EC':1.33333333333333,
+'ET_EB':0.666666666666667,
+'ET_ET':1,
+'ET_EA':4,
+'ET_EQ':0.166666666666667,'EA_EM':0.0833333333333333,
+'EA_ED':0.00277777777777778,
+'EA_ES':0.5,
+'EA_EC':0.333333333333333,
+'EA_EB':0.166666666666667,
+'EA_ET':0.25,
+'EA_EA':1,
+'EA_EQ':0.0416666666666667,'EQ_EM':0.0833333333333333,
+'EQ_ED':0.00277777777777778,
+'EQ_ES':0.5,
+'EQ_EC':0.333333333333333,
+'EQ_EB':0.166666666666667,
+'EQ_ET':0.25,
+'EQ_EA':1,
+'EQ_EQ':0.0416666666666667,
+'EQ_EM':2,
+'EQ_ED':0.0666666666666667,
+'EQ_ES':12,
+'EQ_EC':8,
+'EQ_EB':4,
+'EQ_ET':6,
+'EQ_EA':24,
+'EQ_EQ':1           
+               }
     
-    
-inversion=Interes_compuesto(100000,2,1)
-print(inversion.valor_futuro())
-inversion.amortizacion(100000,60,5)
-inversion.crear_tabla_amortizacion(48364, 24, 0.0292953486,23100,2781)
+    global __clave__
+    __clave__=0
 
+    global factor
+    factor=0
 
-print(npf.__dict__)
+    def convertir_tasas_equivalentes_efectivas(self,periodo_a_convertir,tasa,capitalizacion_actual):
+        print("""la conversion solo funciona con tasas efectivas basicas a un año, si desea convertir una casa con capitalizacion
+        diferente a la comun debe usar la formula TE=((1+Tasa_de_interes)**periodos )-1""")
+        self.periodo_a_convertir=periodo_a_convertir.upper()
+        self.tasa=float(tasa/100)
+        self.capitalizacion_actual=capitalizacion_actual.upper()
+        
+        __clave__=self.periodo_a_convertir+"_"+self.capitalizacion_actual
+        
+        for i in __tasas__:
+            factor=__tasas__[__clave__]
+        
+        valor=((1+self.tasa)**(factor)-1)
 
-inversion.valor_actual(1340.09556,0.05,6)
-#inversion.prueba ## como podemos ver, la variable de clase es un metodo dentro del objeto instanciado
+        return print("tasa efectiva equivalente de la capitalizacion actual:{} a {} es: {:.10f}".format(self.capitalizacion_actual,
+        self.periodo_a_convertir,valor))
 
-#inversion.eliminar_IC()
+    global __nombres__
+    __nombres__={'NM:NOMINAL ANUAL MENSUAL',
+'NAD:NOMINAL ANUAL DIARIO',
+'NAS:NOMINAL ANUAL SEMESTRAL',
+'NAC:NOMINAL ANUAL CUATRIMESTRAL',
+'NAB:NOMINAL ANUAL BIMESTRAL',
+'NAT:NOMINAL ANUALTRIMESTRAL',
+'NA:NOMINAL ANUAL',
+'NAQ:NOMINAL ANUAL QUINCENAL',
+'EM:EFECTIVO MENSUAL',
+'ED:EFECTIVO DIARIO',
+'ES:EFECTIVO SEMESTRAL',
+'EC:EFECTIVO CUATRIMESTRAL',
+'EB:EFECTIVO BIMESTRAL',
+'ET:EFECTIVO TRIMESTRAL',
+'EA:EFECTIVO ANUAL',
+'EQ:EFECTIVO QUINCENAL'
+}
+    global Periodos_nom
+    Periodos_nom={
+    1:"NA",6:"NAB",4:"NAT",3:"NAC",2:"NAS",12:"NAM"
+}
+    def convertir_tasas_efectivas_a_nominales(self,capitalizacion_efectiva,tasa_efectiva,periodos):
+        self.capitalizacion_efectiva=capitalizacion_efectiva
+        self.tasa_efectiva=float(tasa_efectiva)
+        self.periodos=int(periodos)
+        
+        tas_nom=self.tasa*self.periodos
 
+        for name in Periodos_nom:
+            if name==self.periodos:
+                name_valor=Periodos_nom[name]
 
+        return print("Tasa nominal {} equivalente a la tasa {} del {:.10f}".format(name_valor,self.capitalizacion_efectiva,tas_nom))
 
-#print(inversion.__dict__) ## con dict podemos ver que atributos tiene la instancia(y la clase de donde se instancio)
-
-
-acciones=Inversion("PFBCOLOM.CL","2022-12-29","2022-12-30")
-#print(acciones.__dict__)
-
-acciones.descargar_yahoo_finance()
-acciones.descargar_investing("BIC_p1", "04/07/2022","05/07/2022") ## descarga de investing
-
-# portafolio=Simular_portafolio_RF(2)
-
-#portafolio.Mostrar_cuadro()
-
-#portafolio.valor_futuro_pf()
-
-#portafolio.generar_excel_pf()
-
-actual=Interes_compuesto(100000, 15, 1)
-actual.valor_futuro()
-actual.valor_actual(200000, 15, 1)
