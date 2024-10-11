@@ -267,7 +267,7 @@ class Interes:
             valor_nominal=((1+self.tasa_valor/24)**1)-1
             return "{:.10f}".format(valor_nominal)
         
-ejemplo=Interes("ea",33,"em")
+ejemplo=Interes("ed",0.01,"em")
 ejemplo.calcular_tasas_efectivas_equivalentes()
 
 # convertir formato de tasa en un formato mas legible
